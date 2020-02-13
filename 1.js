@@ -1,2 +1,2 @@
-var hqq='asdasdasd';
-console.log(hqq);
+var f='asdasdasd';
+console.log(f);
