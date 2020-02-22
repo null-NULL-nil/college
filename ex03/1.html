@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<b>新增</b>
+<p>
+    姓名<input id="name_" type="text">
+    <br>
+    学号<input id="stuno" type="text">
+    <br>
+    班级<input id="class_" type="text">
+    <br>
+    WEB<input id="web" type="text">
+    <br>
+    RFID<input id="rfid" type="text">
+    <br>
+    <button id="add_btn" onclick="addStuInfo()">新增</button>
+
+</p>
+<table id="chenji">
+    <caption>成绩</caption>
+    <thead>
+        <tr>
+        <th>姓名</th>
+        <th>学号</th>
+        <th>班级</th>
+        <th>WEB</th>
+        <th>RFID</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="chenji-body">
+
+    </tbody>
+</table>
+<script>
+    var stu_info = [
+        {
+            "name_":"张三",
+            "stuno":"001",
+            "class_":"物联1802",
+            "web":"90",
+            "rfid":"90"
+        },
+        {
+            "name_":"李四",
+            "stuno":"002",
+            "class_":"物联1802",
+            "web":"70",
+            "rfid":"50"
+        },
+        {
+            "name_":"王五",
+            "stuno":"003",
+            "class_":"物联1802",
+            "web":"20",
+            "rfid":"90"
+        }
+    ];
+
+    var name_ = document.getElementById("name_");
+    var stuno = document.getElementById("stuno");
+    var class_ = document.getElementById("class_");
+    var web = document.getElementById("web");
+    var rfid = document.getElementById("rfid");
+
+
+    var tb = document.getElementById("chenji-body");
+    var tb_html = "";
+    for(var i=0;i<stu_info.length;i++){
+        var stu_info_item = stu_info[i];
+        tb_html += "<tr id='stu_"+i+"'><td>"+stu_info_item.name_+
+            "</td><td>"+stu_info_item.stuno+
+            "</td><td>"+stu_info_item.class_+
+            "</td><td>"+stu_info_item.web+
+            "</td><td>"+stu_info_item.rfid+
+            "</td><td><button onclick=delete_line('stu_"+i+"')>删除</button>" +
+            "<button onclick=update_line01('stu_"+i+"')>更改</button></td></tr>";
+    }
+    tb.innerHTML = tb_html;
+
+    function delete_line(line_id) {
+        document.getElementById(line_id).remove();
+    }
+
+    function update_line01(line_id) {
+        var line = document.getElementById(line_id);
+        var tds = line.children;
+        name_.value = tds[0].innerText;
+        stuno.value = tds[1].innerText;
+        class_.value = tds[2].innerText;
+        web.value = tds[3].innerText;
+        rfid.value = tds[4].innerText;
+
+        var add_btn = document.getElementById("add_btn");
+        add_btn.style.visibility="hidden";
+
+        var btn_1 = document.createElement("button");
+        btn_1.setAttribute("id","btn_1");
+        btn_1.innerText = "确认修改";
+        btn_1.onclick = function(){
+            update_line02(line_id);
+        }
+        add_btn.parentNode.appendChild(btn_1);
+    }
+
+    function update_line02(line_id) {
+        var line = document.getElementById(line_id);
+        var tds = line.children;
+        tds[0].innerText = name_.value;
+        tds[1].innerText = stuno.value;
+        tds[2].innerText = class_.value;
+        tds[3].innerText = web.value;
+        tds[4].innerText = rfid.value;
+        name_.value = "";
+        stuno.value = "";
+        class_.value = "";
+        web.value = "";
+        rfid.value = "";
+        document.getElementById("btn_1").remove();
+        var add_btn = document.getElementById("add_btn");
+        add_btn.style.visibility="visible";
+    }
+    
+    function addStuInfo() {
+        var tb_html = tb.innerHTML;
+        tb_html += "<tr id='stu_"+i+"'><td>"+name_.value+
+            "</td><td>"+stuno.value+
+            "</td><td>"+class_.value+
+            "</td><td>"+web.value+
+            "</td><td>"+rfid.value+
+            "</td><td><button onclick=delete_line('stu_"+i+"')>删除</button>" +
+            "<button onclick=update_line01('stu_"+i+"')>更改</button></td></tr>";
+        i++;
+
+        tb.innerHTML = tb_html;
+        name_.value = "";
+        stuno.value = "";
+        class_.value = "";
+        web.value = "";
+        rfid.value = "";
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex02</title>
+</head>
+<body onload="b()">
+    <!-- <input type="button" onclick="b1()" value="b1">
+    <input type="button" onclick="b2()" value="b2">
+    <input type="button" onclick="b3()" value="b3"> -->
+</body>
+<script>
+    var a = [234, 5123, 43, 123543, 123, 5436, 2, 3, 7, 98, 9, 43, 2, 6, 547, 324, 6];
+    function b() {
+        document.write("<h1>balabla</h1>");
+        document.write('<input type="button" onclick="b1()" value="b1">');
+        document.write('<input type="button" onclick="b2()" value="b2">');
+        document.write('<input type="button" onclick="b3()" value="b3">');
+        document.write('<br>我这里有一堆数你拿去玩吧 ');
+        document.write(a);
+        document.write('<br>骚年听说你要查找?  <input type="text" name="" id="text0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        document.write('<input type="button" onclick="cz()" value="yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+        document.write('<input type="text" name="" id="text1">');
+        px();
+    }
+    function b1() {
+        alert("警告哦");
+    }
+    function b2() {
+        confirm("确认?");
+    }
+    function b3() {
+        prompt("输入框?");
+    }
+
+
+    function jizhi() {
+        var max = -9999999;
+        var min = 99999999;
+        for (var i in a) {
+            max = a[i] > max ? a[i] : max;
+            min = a[i] < min ? a[i] : min;
+        }
+        console.log('The max in a[]  is  ' + max);
+        console.log('The min in a[]  is  ' + min);
+    }
+
+    function px() {
+        jizhi();
+        console.log('before  sort');
+        console.log(a);//print
+        // for(var i in a)
+        // {
+        //     console.log(a[i]);
+        // }
+        mppx();
+    }
+    function mppx() {
+        //sort(a);
+        console.log('start maopao');
+        for (var i = 0; i < a.length - 1; i++) {
+            console.log("i=" + a[i])
+            for (var j = 0; j < a.length - i - 1; j++) {
+                // console.log("j=" + a[j]);
+                // console.log("j+1=" + a[j + 1]);
+                if (a[j] > a[j + 1]) {
+                    var temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+            // console.log(a);
+        }
+        console.log('end');
+        console.log(a);
+    }
+
+    function cz() {
+        var ii = document.getElementById('text0').value;
+        document.getElementById('text1').value = '?';
+        console.log(ii);
+        //console.log(binerySearch(ii, a))
+        for (const i in a) {
+            if (a[i] == ii) {
+                document.getElementById('text1').value = '下标' + i;
+            }
+        }
+        if (document.getElementById('text1').value = '?') document.getElementById('text1').value = '找不到';
+    }
+    function binerySearch(item, arr, start, end) {
+        //是有序的
+        mppx();
+        var start = start || 0;
+        var end = end || arr.length - 1;
+        var mid = Math.floor((start + end) / 2);
+
+        if (item === arr[mid]) {
+            return mid;
+        } else if (item > arr[mid]) {
+            return binerySearch(item, arr, mid + 1, end);
+        } else {
+            return binerySearch(item, arr, start, mid - 1);
+        }
+        return false;
+    }
+
+</script>
+
+</html>

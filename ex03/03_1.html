@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex03</title>
+</head>
+
+<body>
+    <h1>学生成绩管理系统</h1>
+    <a href="./ex03.html">退出</a><br>
+    <table>
+        <tr>
+            <td>姓名</td>
+            <td><input type="text" name="" id="name"></td>
+        </tr>
+        <tr>
+            <td>学号</td>
+            <td><input type="text" name="" id="id"></td>
+        </tr>
+        <tr>
+            <td>班级</td>
+            <td><input type="text" name="" id="Class"></td>
+        </tr>
+        <tr>
+            <td>Web</td>
+            <td><input type="text" name="" id="web"></td>
+        </tr>
+        <tr>
+            <td>RFID</td>
+            <td><input type="text" name="" id="RFID"></td>
+        </tr>
+    </table>
+    <table>
+        <thead>
+            <td>
+                <input type="button" onclick="Create()" value="Create" id="Create">
+            </td>
+            <td>
+                <input type="button" value="Update" id="Update">
+            </td>
+            <td>
+                <input type="button" onclick='Search()' value="Search" id="Search">
+            </td>
+        </thead>
+    </table>
+    <br>
+    <table>
+        <thead>
+            <td>姓名</td>
+            <td>学号</td>
+            <td>班级</td>
+            <td>Web</td>
+            <td>RFID</td>
+        </thead>
+        <!-- //////////////// -->
+        <tbody id='tbody'>
+
+        </tbody>
+    </table>
+</body>
+
+<script>
+    var list = new Array();
+    var index = 0;
+    var up = 0;
+    var temp = null;//update 's id
+
+
+    function Create()
+    {
+        var name = document.querySelector('#name').value;
+        var id = document.querySelector('#id').value;
+        var Class = document.querySelector('#Class').value;
+        var web = document.querySelector('#web').value;
+        var RFID = document.querySelector('#RFID').value;
+        var flag = true;
+        for (var i in list)
+        {
+            if (list[i] === id)
+                // console.log('i = ? ' +i+'   '+list[i]+'   '+id);
+                flag = false;
+        }
+        console.log('create return ------' + flag);
+        if (flag === true || up === 1)
+        {
+            if (up === 0)
+                list[index++] = id;
+            // console.log(index + '      ' + id);
+            document.querySelector('#tbody').insertAdjacentHTML("beforebegin",
+                `<tr id="tr${id}" onclick=show('tr${id}')>
+            <td name="">${name}</td>
+            <td name="">${id}</td>
+            <td name="">${Class}</td>
+            <td name="">${web}</td>
+            <td name="">${RFID}</td>
+            <td>
+                <button type="button" id="delete${id}">删除</button>
+            </td>
+            </tr>`
+            );
+            document.querySelector(`#delete${id}`).addEventListener("click", function (e)
+            {
+                Delete(id);
+            });
+
+            document.querySelector('#name').value = '';
+            document.querySelector('#id').value = '';
+            document.querySelector('#Class').value = '';
+            document.querySelector('#web').value = '';
+            document.querySelector('#RFID').value = '';
+            up = 0;
+        } else
+        {
+            document.querySelector('#name').value = '';
+            if (id === '' || id === null)
+                document.querySelector('#id').value = 'id不能为空!!!';
+            else
+                document.querySelector('#id').value = 'id已经存在!!!';
+            document.querySelector('#Class').value = '';
+            document.querySelector('#web').value = '';
+            document.querySelector('#RFID').value = '';
+        }
+    }
+    // document.querySelector('#Create').addEventListener('click', Create());
+
+    //Delete
+    function Delete(id)
+    {
+        for (var i in list)
+        {
+            if (list[i] == id)
+            {
+                list[i] = null;
+                // console.log(i);
+                for (var ii = Number(i); ii < list.length-1; ii++)
+                {
+                    // console.log('ii='+(ii+1));
+                    list[Number(ii)] = list[Number(ii + 1)];
+                }
+            }
+        }
+        index--;
+        if (id !== null && id !== undefined)
+            document.querySelector(`#tr${id}`).remove();
+    }
+
+    // Update
+    document.querySelector('#Update').addEventListener('click', function (e)
+    {
+        var id = document.querySelector('#id').value;
+        temp = id;
+        for (var i in list)
+        {
+            if (list[i] === id && id != null && id != '')
+            {
+                console.log('find id' + id);
+                document.querySelector(`#tr${id}`).remove();
+                up = 1;
+                Create();
+            }
+        }
+    });
+
+    //Search 
+    function Search()
+    {
+        var id = document.querySelector('#id').value;
+        var flag = false;
+        for (var i in list)
+        {
+            if (list[i] === id)
+            {
+                flag = true;
+            }
+        }
+        if (flag === true)
+        {
+            var b = document.getElementById('tr' + id).children;
+            document.querySelector('#name').value = b[0].innerText;
+            document.querySelector('#id').value = b[1].innerText;
+            document.querySelector('#Class').value = b[2].innerText;
+            document.querySelector('#web').value = b[3].innerText;
+            document.querySelector('#RFID').value = b[4].innerText;
+            for (var i in list)
+            {
+                console.log('Search return '+typeof(list[i])+'----'+typeof(id)+' --- '+list[i]+'--'+id)
+                if (list[i] !== id)
+                {
+                    console.log(list[i]);
+                    Delete(list[i]);
+                }
+            }
+        } else
+        {
+            document.querySelector('#id').value = '找不到此用户';
+        }
+
+    }
+
+    function show(e)
+    {
+        //获取子对象
+        console.log(e);
+        try
+        {
+            var b = document.getElementById(e).children;
+            document.querySelector('#name').value = b[0].innerText;
+            document.querySelector('#id').value = b[1].innerText;
+            document.querySelector('#Class').value = b[2].innerText;
+            document.querySelector('#web').value = b[3].innerText;
+            document.querySelector('#RFID').value = b[4].innerText;
+        } catch (error)
+        {
+            //console.log(error);
+        }
+    }
+
+
+
+
+</script>
+
+</html>
