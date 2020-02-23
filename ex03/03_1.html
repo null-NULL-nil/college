@@ -75,14 +75,14 @@
         var Class = document.querySelector('#Class').value;
         var web = document.querySelector('#web').value;
         var RFID = document.querySelector('#RFID').value;
-        var flag = true;
-        for (var i in list)
+        var flag = id == '' || id == null || id == undefined ? false : true;
+        for (let i = 0; i < index; i++)
         {
             if (list[i] === id)
-                // console.log('i = ? ' +i+'   '+list[i]+'   '+id);
                 flag = false;
         }
-        console.log('create return ------' + flag);
+
+        console.log('create return ------' + flag + '   id---' + id);
         if (flag === true || up === 1)
         {
             if (up === 0)
@@ -130,11 +130,11 @@
     {
         for (var i in list)
         {
-            if (list[i] == id)
+            if (list[Number(i)] == id)
             {
-                list[i] = null;
+                list[Number(i)] = null;
                 // console.log(i);
-                for (var ii = Number(i); ii < list.length-1; ii++)
+                for (var ii = Number(i); ii < list.length - 1; ii++)
                 {
                     // console.log('ii='+(ii+1));
                     list[Number(ii)] = list[Number(ii + 1)];
@@ -150,15 +150,18 @@
     document.querySelector('#Update').addEventListener('click', function (e)
     {
         var id = document.querySelector('#id').value;
-        temp = id;
-        for (var i in list)
+        if (id != null || id != '')
         {
-            if (list[i] === id && id != null && id != '')
+            temp = id;
+            for (var i in list)
             {
-                console.log('find id' + id);
-                document.querySelector(`#tr${id}`).remove();
-                up = 1;
-                Create();
+                if (list[i] === id && id != null && id != '')
+                {
+                    console.log('find id' + id);
+                    document.querySelector(`#tr${id}`).remove();
+                    up = 1;
+                    Create();
+                }
             }
         }
     });
@@ -183,15 +186,22 @@
             document.querySelector('#Class').value = b[2].innerText;
             document.querySelector('#web').value = b[3].innerText;
             document.querySelector('#RFID').value = b[4].innerText;
+            var linshi = new Array();
+            var linshiindex = 0;
             for (var i in list)
             {
-                console.log('Search return '+typeof(list[i])+'----'+typeof(id)+' --- '+list[i]+'--'+id)
-                if (list[i] !== id)
+                console.log('Search return ' + typeof (list[i]) + '----' + typeof (id) + ' --- ' + list[i] + '--' + id)
+                if (list[i] != id)
                 {
                     console.log(list[i]);
-                    Delete(list[i]);
+                    linshi[linshiindex++] = list[i];
                 }
             }
+            for (var i in linshi)
+            {
+                Delete(linshi[i]);
+            }
+
         } else
         {
             document.querySelector('#id').value = '找不到此用户';
