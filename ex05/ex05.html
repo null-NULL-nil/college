@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex03</title>
+    <!-- <link rel="stylesheet" href="../css/e4_1.css"> -->
+    <link rel="stylesheet" href="./e5.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="page container-fulid login-page">
+        <div class="row justify-content-center align-items-center">
+            <form action="">
+                <img src="./image/tou.svg" alt="" class="logo">
+                <p id="frmErr" class="text-danger"></p>
+                <div class="form-group ">
+                    <p id="userNameErr" class="text-danger"></p>
+                    <label for="userName">用户名</label>
+                    <!-- <img src="./image/user.png" alt="" class="ipt-icon"> -->
+                    <input class="form-control" type="text" name="userName" id="userName">
+                </div class="form-group row">
+                <div class="form-group ">
+                    <p id="passwordErr" class="text-danger"></p>
+                    <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                    <!-- <img src="./image/mima.svg" alt="" class="ipt-icon"> -->
+                    <input class="form-control" type="password" name="password" id="password">
+                </div>
+                <button id="btnLogin" class="btn btn-primary btn-lg btn-block">登录</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="page hide">
+        这是第二个页面
+    </div>
+</body>
+<script>
+
+    var xmlHttp = null;
+
+
+    //src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"
+    const frm = {
+        iptUserName: null,
+        iptPassword: null,
+        pUserNameErr: null,
+        pPasswordErr: null,
+        pFrmErr: null
+    };
+
+    function onLogin()
+    {
+        frm.pUserNameErr.innerText = '';
+        frm.pPasswordErr.innerText = '';
+        frm.pFrmErr.innerText = '';
+        //const userName = document.getElementById('userName');
+        const userName = frm.iptUserName.value;
+        let fmt = true;
+        if (userName.trim().length <= 0)
+        {
+            frm.pUserNameErr.innerText = '用户名不能为空';
+            fmt = false;
+        } else if (userName.trim().length < 3)
+        {
+            frm.pUserNameErr.innerText = '用户名长度不能小于3';
+            fmt = false;
+        }
+
+        const password = frm.iptPassword.value;
+        if (password.trim().length <= 0)
+        {
+            frm.pPasswordErr.innerText = '密码不能为空';
+            fmt = false;
+        } else if (password.trim().length < 6)
+        {
+            frm.pPasswordErr.innerText = '密码长度不能小于6';
+            fmt = false;
+        }
+
+        if (!fmt)
+        {
+            return;
+        } else
+        {
+            // console.log(userName);
+            sendLogin(userName.trim(), password.trim());
+            // if (userName === 'admin' && password === '123456')
+            // {
+            //     window.location.href = '../ex03/03_1.html';
+            // } else
+            // {
+            //     frm.pFrmErr.innerText = '用户名或者密码错误';
+            // }
+        }
+    }
+
+    function onFocus(evt)
+    {
+        const obj = evt.target;
+        frm.pFrmErr.innerText = '';
+        if (obj === frm.iptUserName)
+        {
+            frm.pUserNameErr.innerText = '';
+            const userName = frm.iptUserName.value;
+            // console.log(userName);
+            if (userName.trim().length <= 0)
+            {
+                frm.pUserNameErr.innerText = '用户名不能为空';
+                // obj.className = 'ipt-error';
+            } else if (userName.trim().length < 3)
+            {
+                frm.pUserNameErr.innerText = '用户名长度不能小于3';
+                // obj.className = 'ipt-error';
+            } else
+            {
+                // obj.className = '';
+            }
+        }
+    }
+
+    function paFocus(evt)
+    {
+        const obj = evt.target;
+        frm.pFrmErr.innerText = '';
+        if (obj === frm.iptPassword)
+        {
+            frm.pPasswordErr.innerText = '';
+            const password = frm.iptPassword.value;
+            if (password.trim().length <= 0)
+            {
+                frm.pPasswordErr.innerText = '密码不能为空';
+            } else if (password.trim().length < 6)
+            {
+                frm.pPasswordErr.innerText = '密码长度不能小于6';
+            }
+        }
+    }
+
+    function onResponse()
+    {
+        if (xmlHttp.readyState == 4)
+        {
+            if (xmlHttp.status == 200)
+            {
+                const resp = xmlHttp.responseText;
+                console.log(resp);
+                const obj = JSON.parse(resp);
+                if (obj.success)
+                {
+                    console.log('登录成功');
+                    const pages = document.getElementsByClassName('page');
+                    pages[0].className = 'page login-page hide';
+                    pages[1].className = 'page';
+                    window.Location.herf = '';
+                } else
+                {
+                    frm.pFrmErr.innerText = '登陆失败';
+                }
+            }
+        }
+    }
+
+    function sendLogin(name, password)
+    {
+        //get post
+        //
+        xmlHttp.onreadystatechange = onResponse;
+        xmlHttp.open('POST', 'http://127.0.0.1:8080/user', true);
+        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlHttp.send('name=' + name + '&password=' + password);
+        console.log(name + "-----" + password);
+    }
+
+    window.onload = function ()
+    {
+
+        xmlHttp = new XMLHttpRequest();
+
+        const btnLogin = document.getElementById('btnLogin');
+        btnLogin.addEventListener('click', function (evt)
+        {
+            onLogin();
+            evt.returnValue = false;
+        });
+
+        frm.iptUserName = document.getElementById('userName');
+        frm.iptUserName.addEventListener('focus', function (evt)
+        {
+            onFocus(evt);
+        });
+
+        frm.iptUserName.addEventListener('input', function (evt)
+        {
+            onFocus(evt);
+        });
+
+        frm.iptPassword = document.getElementById('password');
+        frm.iptPassword.addEventListener('focus', function (evt)
+        {
+            paFocus(evt);
+        });
+
+        frm.iptPassword.addEventListener('input', function (evt)
+        {
+            paFocus(evt);
+        });
+
+
+
+        frm.pUserNameErr = document.getElementById('userNameErr');
+        frm.pPasswordErr = document.getElementById('passwordErr');
+        frm.pFrmErr = document.getElementById('frmErr');
+
+        document.onkeydown = function (e)
+        { // 回车提交表单
+            var theEvent = window.event || e;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+            if (code == 13)
+                onLogin();
+        }
+    }
+</script>
+
+</html>

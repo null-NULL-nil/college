@@ -1,0 +1,133 @@
+html body{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+.img-small{
+    height: 3rem;
+    align-items: center;
+}
+.img-big{
+    height: 6rem;
+
+}
+.page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* div{
+    border: 1px solid red;
+} */
+.div1{
+    width: 30rem;
+    height: 60rem;
+}
+.div1-1{
+    background-color: pink;
+    width: 30rem;
+    height: 14.5rem;
+}
+.div-touxiang{
+    width: 10rem;
+    height: 10rem;
+    justify-content: center;
+    align-items: center;
+}
+.div1-2{
+    width: 100%;
+    height: 13rem;
+    /* background-color: white; */
+    align-items: center;
+    flex-direction:row; 
+}
+form{
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 100%;
+    /* text-align: center; */
+    font-size: 1.1rem;
+    /* justify-content: center;
+    align-items: center; */
+}
+form input {
+    border-top:none ;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    height: 2rem;
+    width: 88%;
+    font-size: 2rem;
+    opacity: .5;
+    margin: 0 0 0 0;
+}
+form input:focus{
+    outline: none;
+}
+hr{
+    width: 96%;
+    background-color: black;
+    /* border: none; */
+    height: 1px;
+}
+p{
+    width: 100%;height: 2rem;
+    /* border: 1px solid red; */
+    margin: 0.5rem 0 0 0 ;
+}
+.div1-3{
+    width: 100%;
+    height: calc(100% - 13rem - 14.5rem);
+    background-color: pink;
+    text-align: center;
+}
+button{
+    width: 96%;
+    height: 3rem;
+    border-radius: 10px;
+    background: rgb(196, 138, 147) ;
+    font-size: 1rem ;
+    /* color: white; */
+    margin: 1rem auto;
+    border: 1px rgb(192, 138, 147);
+
+}
+button:focus{
+    outline: none;
+    border: 1px solid rgb(255, 255, 255);
+}
+table{
+    width: 70%;
+    height: 3rem;
+    font-size: 1.5rem;
+    /* border: 1px solid red; */
+    margin: 3rem auto ;
+}
+.hr50{
+    width: 100%;
+    background-color: rgb(152, 168, 184);
+    /* border: none; */
+    height: 1px;
+    margin: 0 0 0 0 ;
+}
+.pp{
+    width: 2.5rem;
+    height: 3rem;
+    /* border: 1px solid red; */
+    margin: -1.8rem auto;
+    font-size: 2rem;
+    background-color: pink;
+}
+/* .tdiv{
+} */
+.tt{
+    width: 90%;
+
+}
+.error{
+    color: #dc3545;
+    text-align: left;
+    font-size: 1rem;
+}

@@ -1,0 +1,83 @@
+html body{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+.page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-page{
+    background: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583397367353&di=eb78745715a62bc20b37399967ef6ad8&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20170410%2F4578d8c837b14c3a9e85c36e8f75bf48_th.jpeg');
+    background-size: 100%;
+}
+form{
+    border: 1px solid red;
+    width: 36rem;
+    height: 25rem;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    padding: 1rem;
+    background: white;
+    opacity: .6;
+}
+form input {
+    border-top:none ;
+    border-left: none;
+    border-right: none;
+    height: 2rem;
+    width: 80%;
+    font-size: 1.1rem;
+    margin: 0.8rem 0 0.8rem -1.4rem;
+    opacity: .5;
+    padding: 0 0 0 1.5rem;
+}
+
+form input:focus{
+    outline: none;
+    border-bottom: 1px solid darkblue;
+}
+
+form:hover{
+    box-shadow: 0px 0px 3px 3px lightgray;
+}
+
+.ipt-icon{
+    height: 1rem;
+    margin: 0 0 0 1rem;
+}
+
+form button{
+    width: 98%;
+    height: 3rem;
+    border-radius: 5px;
+    background: #6f42c1;
+    font-size: 1rem ;
+    color: white;
+    margin: 2.5 rem 0 2.5rem 0;
+}
+
+button:focus{
+    outline: none;
+    border: 1px solid lightgreen;
+}
+
+.logo{
+    height: 6rem;
+}
+.error{
+    color: #dc3545;
+    text-align: left;
+    font-size: 1rem;
+}
+.ipt-error{
+    border-bottom: 1px solid #dc3545;
+}
+
+.hide{
+    display: none;
+}
