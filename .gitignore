@@ -1,3 +1,4 @@
+nodejs/new-porject/node_modules/
 *.jpg
 *.png
 *.svg
@@ -12,7 +13,6 @@ target/
 *.zip
 *.tar
 *.tar.gz
-
 # eclipse ignore
 .settings/
 .project

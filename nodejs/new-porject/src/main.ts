@@ -1,5 +1,5 @@
 import { CounterImpl } from './e1';
-
+import './style.css'
 class MyCounter
 {
     pele: HTMLParagraphElement;
