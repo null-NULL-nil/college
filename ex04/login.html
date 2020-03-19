@@ -18,20 +18,19 @@
                     <img src="./image/ex01/user.png" class="img-big">
                 </div>
             </div class="div1-1">
-
             <div class="div1-2">
                 <form action="">
-                    <p id="p1"></p>
+                    <p id="userNameErr" class="error"></p>
                     <img src="./image/ex01/user1.png" class="img-small">
                     <input type="text" class="userName" id="userName">
                     <hr>
-                    <p id="p2"></p>
+                    <p id="passwordErr" class="error"></p>
                     <img src="./image/ex01/password.png" class="img-small">
                     <input type="password" name="password" id="password">
                 </form>
-            </div>
+            </div class="div1-2">
             <div class="div1-3">
-                <button id="submit">登录</button>
+                <button id="btnLogin">登录</button>
                 <br>
                 <table>
                     <tr>
@@ -72,10 +71,127 @@
             </div class="div1-3">
         </div class="div1">
     </div class="page">
-
 </body>
 <script>
-
+    const frm = {
+        iptUserName: null,
+        iptPassword: null,
+        pUserNameErr: null,
+        pPasswordErr: null,
+    };
+    function onFocus(evt)
+    {
+        const obj = evt.target;
+        if (obj === frm.iptUserName)
+        {
+            frm.pUserNameErr.innerText = '';
+            const userName = frm.iptUserName.value;
+            // console.log(userName);
+            if (userName.trim().length <= 0)
+            {
+                frm.pUserNameErr.innerText = '用户名不能为空';
+                obj.className = 'ipt-error';
+            } else if (userName.trim().length < 3)
+            {
+                frm.pUserNameErr.innerText = '用户名长度不能小于3';
+                obj.className = 'ipt-error';
+            } else
+                obj.className = '';
+        }
+    }
+    function paFocus(evt)
+    {
+        const obj = evt.target;
+        if (obj === frm.iptPassword)
+        {
+            frm.pPasswordErr.innerText = '';
+            const password = frm.iptPassword.value;
+            if (password.trim().length <= 0)
+            {
+                frm.pPasswordErr.innerText = '密码不能为空';
+            } else if (password.trim().length < 6)
+            {
+                frm.pPasswordErr.innerText = '密码长度不能小于6';
+            }
+        }
+    }
+    function onLogin()
+    {
+        frm.pUserNameErr.innerText = '';
+        frm.pPasswordErr.innerText = '';
+        //const userName = document.getElementById('userName');
+        const userName = frm.iptUserName.value;
+        let fmt = true;
+        if (userName.trim().length <= 0)
+        {
+            frm.pUserNameErr.innerText = '用户名不能为空';
+            fmt = false;
+        } else if (userName.trim().length < 3)
+        {
+            frm.pUserNameErr.innerText = '用户名长度不能小于3';
+            fmt = false;
+        }
+        const password = frm.iptPassword.value;
+        if (password.trim().length <= 0)
+        {
+            frm.pPasswordErr.innerText = '密码不能为空';
+            fmt = false;
+        } else if (password.trim().length < 6)
+        {
+            frm.pPasswordErr.innerText = '密码长度不能小于6';
+            fmt = false;
+        }
+        if (!fmt)
+        {
+            return;
+        } else
+        {
+            // console.log(userName);
+            // sendLogin(userName.trim(), password.trim());
+            if (userName === 'admin' && password === '123456')
+            {
+                window.location.href = '#';
+            } else
+            {
+                frm.pUserNameErr.innerText = '用户名或者密码错误';
+            }
+        }
+    }
+    window.onload = function ()
+    {
+        const btnLogin = document.getElementById('btnLogin');
+        btnLogin.addEventListener('click', function (evt)
+        {
+            onLogin();
+            evt.returnValue = false;
+        });
+        frm.iptUserName = document.getElementById('userName');
+        frm.iptUserName.addEventListener('focus', function (evt)
+        {
+            onFocus(evt);
+        });
+        frm.iptUserName.addEventListener('input', function (evt)
+        {
+            onFocus(evt);
+        });
+        frm.iptPassword = document.getElementById('password');
+        frm.iptPassword.addEventListener('focus', function (evt)
+        {
+            paFocus(evt);
+        });
+        frm.iptPassword.addEventListener('input', function (evt)
+        {
+            paFocus(evt);
+        });
+        frm.pUserNameErr = document.getElementById('userNameErr');
+        frm.pPasswordErr = document.getElementById('passwordErr');
+        document.onkeydown = function (e)
+        { // 回车提交表单
+            var theEvent = window.event || e;
+            var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+            if (code == 13)
+                onLogin();
+        }
+    }
 </script>
-
 </html>

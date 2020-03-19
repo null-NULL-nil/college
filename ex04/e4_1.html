@@ -11,18 +11,18 @@
 <body>
     <div class="page login-page">
         <form action="">
-            <img src="./tou.svg" alt="" class="logo">
+            <img src="./image/tou.svg" alt="" class="logo">
             <p id="frmErr" class="error"></p>
             <div>
                 <p id="userNameErr" class="error"></p>
                 <label for="userName">用户名</label>
-                <img src="./user.png" alt="" class="ipt-icon">
+                <img src="./image/user.png" alt="" class="ipt-icon">
                 <input type="text" name="userName" id="userName">
             </div>
             <div>
                 <p id="passwordErr" class="error"></p>
                 <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-                <img src="./mima.svg" alt="" class="ipt-icon">
+                <img src="./image/mima.svg" alt="" class="ipt-icon">
                 <input type="password" name="password" id="password">
             </div>
             <button id="btnLogin">登录</button>
@@ -144,11 +144,10 @@
                 if (obj.success)
                 {
                     console.log('登录成功');
-                    window.Location.herf = '';
                     const pages = document.getElementsByClassName('page');
                     pages[0].className = 'page login-page hide';
                     pages[1].className = 'page';
-                    window.Location.herf='';
+                    window.Location.herf = '';
                 } else
                 {
                     frm.pFrmErr.innerText = '登陆失败';

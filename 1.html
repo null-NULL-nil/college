@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>综合登陆功能</title>
+    <style>
+        html body {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-page {
+            /* background: url('http://www.bizhidaquan.com/d/file/huahui/xianhua/2014-12-26/fb33ce6db72d59dcdc9ba7f9c92a1caa.jpg'); */
+            background-size: 100%;
+        }
+
+        form {
+            border: 1px solid red;
+            width: 35rem;
+            height: 25rem;
+            text-align: center;
+            font-size: 1rem;
+            border-radius: 15px;
+            padding: 1.1rem;
+            background: white;
+            opacity: .8;
+        }
+
+        form:hover {
+            box-shadow: 0px 0px 3px 3px lightgrey;
+        }
+
+        form.input {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            height: 2rem;
+            width: 80%;
+            font-size: 1.1rem;
+            margin: 0.8rem 0 0.8rem -1rem;
+            padding: 0 0 0 1.5rem;
+
+        }
+
+        form.input:focus {
+            outline: none;
+            border-bottom: 1px solid rgb(148, 148, 243);
+        }
+
+        .ipt-icon {
+            height: 0.9rem;
+            margin: 0 0 0 1rem;
+        }
+
+        .logo {
+            height: 6rem;
+        }
+
+        form p {
+            font-size: .8rem;
+            height: .9rem;
+            text-align: left;
+            margin: .5rem 0;
+
+        }
+
+        form button {
+            width: 98%;
+            height: 3rem;
+            border-radius: 5px;
+            background: darkorchid;
+            font-size: 1rem;
+            color: white;
+            margin: 2.5rem 0 2.5rem 0;
+        }
+
+        button:focus {
+            outline: none;
+            border: 1px solid lightcyan;
+        }
+
+        .error {
+            color: brown;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+
+        <img src="" alt="">
+        <h2>用户登陆</h2>
+        <p id="frmErr"></p>
+
+        <div>
+            <p id="userNameErr"></p>
+            <label for="userName">用户名</label>
+            <img src="" alt="">
+            <input type="text" name="userName" id="userName">
+        </div>
+
+        <div>
+            <p id="passwordErr"></p>
+            <label for="password">密码</label>
+            <img src="" alt="">
+            <input type="text" name="password" id="password">
+        </div>
+
+        <input type="button" value="登陆" id="btnLogin">
+
+    </form>
+
+</body>
+<script>
+    const frm = {
+        iptUserName: null,
+        iptPassword: null,
+        pUserNameErr: null,
+        pPasswordErr: null,
+        pFrmErr: null
+    };
+
+    function onLogin()
+    {
+        frm.pUserNameErr.innerText = '';
+        frm.pPasswordErr.innerText = '';
+        frm.pFrmErr.innerText = '';
+
+        const userName = frm.iptUserName.value;
+        console.log(userName.trim().length);
+
+
+        if (userName.trim().length <= 0)
+        {
+            frm.pUserNameErr.innerText = '用户名不能为空';
+        }
+
+        const pass = frm.iptPassword.value;
+        console.log(pass);
+        if (pass.trim().length <= 0)
+        {
+            frm.pPasswordErr.innerText = '密码不能为空';
+        }
+    }
+
+    window.onload = function ()
+    {
+        let btnLogin = document.getElementById('btnLogin');
+        btnLogin.addEventListener('click', function (evt)
+        {
+            onLogin();
+            evt.returnValue = false;/*阻止返回*/
+        });
+        frm.iptUserName = document.getElementById('userName');
+        frm.iptPassword = document.getElementById('password');
+        frm.pUserNameErr = document.getElementById('userNameErr');
+        frm.pPasswordErr = document.getElementById('passwordErr');
+        frm.pFrmErr = document.getElementById('frmErr');
+    }
+</script>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="page login-page">
+        <form action="">
+            <!-- <img src="./img/yh.png" alt="" class="logo"> -->
+            <!-- <h2>用户登录</h2> -->
+            <p id="frmErr" class="error"></p>
+            <div>
+                <p id="userNameErr" class="error"></p>
+                <label for="userName">用户名</label>
+                <!-- <img src="./img/yh.png" alt="" class="ipt-icon"> -->
+                <input type="text" name="userName" id="userName">
+            </div>
+            <div>
+                <p id="passwordErr" class="error"></p>
+                <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                <!-- <img src="./img/卖萌.png" alt="" class="ipt-icon"> -->
+                <input type="password" name="password" id="password">
+            </div>
+            <button id="btnLogin">登录</button>
+        </form>
+    </div>
+
+</body>
+<script>
+    const frm = {
+        iptUserName: null,
+        iptPassword: null,
+        pUserNameErr: null,
+        pPasswordErr: null,
+        pFrmErr: null
+    };
+
+    function onLogin()
+    {
+        frm.pUserNameErr.innerText = '';
+        frm.pPasswordErr.innerText = '';
+        frm.pFrmErr.innerText = '';
+        //const userName = document.getElementById('userName');
+        const userName = frm.iptUserName.value;
+        let fmt = true;
+        console.log(userName);
+        if (userName.trim().length <= 0)
+        {
+            frm.pUserNameErr.innerText = '用户名不能为空';
+            fmt = false;
+        } else if (userName.trim().length < 3)
+        {
+            frm.pUserNameErr.innerText = '用户名长度不能小于3';
+            fmt = false;
+        }
+
+        const password = frm.iptPassword.value;
+        if (password.trim().length <= 0)
+        {
+            frm.pPasswordErr.innerText = '密码不能为空';
+            fmt = false;
+        } else if (password.trim().length < 6)
+        {
+            frm.pPasswordErr.innerText = '密码长度不能小于6';
+            fmt = false;
+        }
+
+        if (!fmt)
+        {
+            return;
+        } else
+        {
+            if (userName === 'admin' && password === '123456')
+            {
+                window.location.href = './ex03_2.html';
+            } else
+            {
+                frm.pFrmErr.innerText = '用户名或者密码错误';
+            }
+        }
+    }
+
+    window.onload = function ()
+    {
+        const btnLogin = document.getElementById('btnLogin');
+        btnLogin.addEventListener('click', function (evt)
+        {
+            onLogin();
+            evt.returnValue = false;
+        });
+
+        frm.iptUserName = document.getElementById('userName');
+        frm.iptPassword = document.getElementById('password');
+        frm.pUserNameErr = document.getElementById('userNameErr');
+        frm.pPasswordErr = document.getElementById('passwordErr');
+        frm.pFrmErr = document.getElementById('frmErr');
+    }
+
+</script>
+
+
+</html>
